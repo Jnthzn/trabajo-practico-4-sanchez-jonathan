@@ -72,3 +72,23 @@ export const createMovie = async (req, res) => {
     });
   }
 };
+
+export const getMovieById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const movie = await Movie.findByPk(id);
+
+    if (!movie) {
+      return res.status(404).json({
+        message: "Película no encontrada",
+      });
+    }
+
+    return res.status(200).json(movie);
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error al obtener la película",
+    });
+  }
+};
